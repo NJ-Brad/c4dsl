@@ -2,6 +2,8 @@
 
 This is the README for your extension "c4dsl". After writing up a brief description, we recommend including the following sections.
 
+# Run npm install
+
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
