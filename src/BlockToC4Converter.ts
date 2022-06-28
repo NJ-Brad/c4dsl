@@ -65,6 +65,11 @@ export class BlockToC4Converter
          var parts: string[];
 
          var lp: LineParser = new LineParser();
+
+         // allow for comment
+         if(block.blockText.trim()[0] === "'"){
+            return;
+         }
          parts = lp.parse(block.blockText);
 
          var itemType: string = "";
@@ -100,7 +105,7 @@ export class BlockToC4Converter
                 else if (str[0] === "(")
                  {
                     description = str.trim();
-                    description = description.substring(1, description.length - 2);
+                    description = description.substring(1, description.length - 1);
                  }
                  else
                  {
@@ -249,6 +254,10 @@ export class BlockToC4Converter
         var parts: string[];
 
         var lp: LineParser = new LineParser();
+        // allow for comment
+        if(block.blockText.trim()[0] === "'"){
+        return;
+        }
         parts = lp.parse(block.blockText);
 
         var origin: string = "";

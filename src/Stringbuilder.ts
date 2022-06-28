@@ -9,4 +9,9 @@ export class StringBuilder
     public append(additionalText: string){
         this.text = this.text.concat(additionalText);
     }
+    
+    public appendLine(additionalText: string){
+        this.text = this.text.concat(additionalText);
+        this.text = this.text.concat("\r\n");
+    }
 }

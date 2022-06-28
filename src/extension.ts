@@ -57,7 +57,8 @@ export function activate(context: vscode.ExtensionContext) {
             var publisher: WorkspacePublisher = new WorkspacePublisher();
 
             var newText: string = fullText;
-            newText = newText + publisher.publish(ws, "Component", "MERMAID");
+            //newText = newText + publisher.publish(ws, "Component", "MERMAID");
+            newText = newText + publisher.publish(ws, "Component", "PLANT");
             // rtnVal = WorkspacePublisher.Publish(ws, "Context", "MERMAID");
             // rtnVal = WorkspacePublisher.Publish(ws, "Container", "MERMAID");
 

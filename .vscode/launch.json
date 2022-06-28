@@ -29,6 +29,16 @@
 				"${workspaceFolder}/out/test/**/*.js"
 			],
 			"preLaunchTask": "${defaultBuildTask}"
-		}
-	]
+		},
+		{
+			"name": "Launch Program",
+			"type": "node",
+			"request": "launch",
+			"program": "${workspaceFolder}/out/process-c4-dsl.js",
+			"args": ["myFolder/path/app.js"],
+			"windows": {
+			  "args": ["${workspaceFolder}\\src\\sample.c4dsl", "${workspaceFolder}\\src\\sample.md"]
+			},
+			"preLaunchTask": "${defaultBuildTask}"
+		  }	]
 }
