@@ -1,0 +1,11 @@
+C4Context
+    Person_Ext(customer, "Customer", "A customer of the bank,`with personal bank accounts")
+    Enterprise_Boundary(e1, "Big Co") {
+        System(c1, "Internet Banking")
+        System(banking_system, "Mainframe Banking System", "Stores all of the core`banking information about`customers, accounts, transactions, etc.")
+    }
+    System_Ext(email_system, "E-Mail System", "The internal`Microsoft Exchange system")
+    Rel(customer, c1, "Uses")
+    Rel(email_system, customer, "Sends e-mails to")
+    Rel(c1, email_system, "Sends e-mails using")
+    Rel(c1, banking_system, "Uses")

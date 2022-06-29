@@ -7,6 +7,7 @@ import { StringStream } from "./StringStream";
 import { BlockToC4Converter} from "./BlockToC4Converter";
 import { C4Workspace } from "./C4Workspace";
 import { WorkspacePublisher } from "./WorkspacePublisher";
+import { MermaidRunner } from "./MermaidRunner";
 
 //let message: string = 'Hello World';
 //console.log(message);
@@ -48,6 +49,33 @@ var publisher: WorkspacePublisher = new WorkspacePublisher();
 
 //var newText: string = fullText;
 
-//var newText = "```mermaid" + "\r\n" + publisher.publish(ws, "Component", "MERMAID") + "\r\n" + "```";
-var newText = "```mermaid" + "\r\n" + publisher.publish(ws, "Component", "PLANT") + "\r\n" + "```";
-fs.writeFileSync(myArgs[1], newText);
+ //var newText = "```mermaid" + "\r\n" + publisher.publish(ws, "Context", "PLANT") + "\r\n" + "```";
+ //var newText = "```mermaid" + "\r\n" + publisher.publish(ws, "Component", "PLANT") + "\r\n" + "```";
+// var newText = "```mermaid" + "\r\n" + publisher.publish(ws, "Container", "PLANT") + "\r\n" + "```";
+ //fs.writeFileSync(myArgs[1], newText);
+
+var newText = "";
+var path = require('path');
+var dirName = path.dirname(myArgs[0]);
+var outName : string;
+var imgName : string;
+var rnr: MermaidRunner = new MermaidRunner();
+
+outName = `${dirName}/context.mmd`;
+imgName = `${dirName}/context.png`;
+newText = publisher.publish(ws, "Context", "PLANT");
+fs.writeFileSync(outName, newText);
+rnr.convert(outName, imgName);
+
+outName = `${dirName}/container.mmd`;
+imgName = `${dirName}/container.png`;
+newText = publisher.publish(ws, "Container", "PLANT");
+fs.writeFileSync(outName, newText);
+rnr.convert(outName, imgName);
+
+outName = `${dirName}/component.mmd`;
+imgName = `${dirName}/component.png`;
+newText = publisher.publish(ws, "Component", "PLANT");
+fs.writeFileSync(outName, newText);
+rnr.convert(outName, imgName);
+
