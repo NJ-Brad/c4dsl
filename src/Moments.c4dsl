@@ -1,0 +1,47 @@
+workspace 
+[
+    items
+    [
+        external_person customer "Customer" ("A customer of the bank,`with personal bank accounts")
+        enterprise e1 "Rocket FOC"
+        [
+            system h "Homes"
+            [
+                Container mrtg "Rocket Mortgage")
+                Container rkthomes "Rocket Homes")
+                Container amrock "Amrock")
+            ]
+            system i "Improvements"
+            [
+                Container solar "Rocket Solar")
+                Container loans "Rocket Loans")
+            ]
+            system l "Loans"
+            [
+                Container loans "Rocket Loans")
+            ]
+            system f "Financial Planning"
+            [
+                Container money "Rocket Money")
+            ]
+            system a "Auto"
+            [
+                Container amrock "Rocket Auto")
+            ]
+        ]
+    ]
+
+    connections
+    [
+'        customer Uses web_app utilizing "HTTPS"
+'        customer Uses spa utilizing "HTTPS"
+'        customer Uses mobile_app
+'        web_app Delivers spa
+'        spa Uses backend_api utilizing "async, JSON/HTTPS"
+'        mobile_app Uses backend_api utilizing "async, JSON/HTTPS"
+'        database "Reads from and writes to" backend_api utilizing "sync, JDBC"
+'        email_system "Sends e-mails to" customer 
+'        backend_api "Sends e-mails using" email_system utilizing "sync, SMTP"
+'        backend_api Uses banking_system utilizing "sync/async, XML/HTTPS"
+    ]
+]
