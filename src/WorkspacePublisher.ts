@@ -12,6 +12,7 @@ export class WorkspacePublisher {
     public publish(workspace: C4Workspace, diagramType: string, format: string): string {
 
         this.diagramType = diagramType;
+        this.redirections.clear();
 
         var rtnVal: string = "";
         switch (format) {
@@ -153,7 +154,7 @@ export class WorkspacePublisher {
     private publishPlantContext(workspace: C4Workspace): string {
         var sb: StringBuilder = new StringBuilder();
 
-        sb.append(this.plantHeader(workspace));
+        sb.append(this.plantHeader(workspace, "Context"));
 
         this.createContextRedirects(workspace.items);
 
@@ -171,6 +172,7 @@ export class WorkspacePublisher {
             newConn = this.plantConnection(rel);
 
             if (!this.isInList(newConn, connections)) {
+                connections.push(newConn);
                 sb.append(this.plantConnection(rel));
             }
         }
@@ -181,7 +183,7 @@ export class WorkspacePublisher {
     private publishPlantContainer(workspace: C4Workspace): string {
         var sb: StringBuilder = new StringBuilder();
 
-        sb.append(this.plantHeader(workspace));
+        sb.append(this.plantHeader(workspace, "Container"));
 
         this.createContainerRedirects(workspace.items);
 
@@ -201,8 +203,15 @@ export class WorkspacePublisher {
     }
 
     private isInList(lookFor: string, lookIn: string[]): boolean {
+        var rtnVal: boolean = false;
 
-        return false;
+        for (var itmNum = 0; itmNum < lookIn.length; itmNum++) {
+            if(this.ciEquals(lookFor, lookIn[itmNum])){
+                rtnVal = true;
+            }
+        }
+
+        return rtnVal;
     }
 
     private createContextRedirects(items: C4Item[], redirectTo: string = "") {
@@ -222,6 +231,10 @@ export class WorkspacePublisher {
                     case "SYSTEM":
                     case "DATABASE":
                         this.createContextRedirects(item.items, item.id);
+                        break;
+                    default:
+                        // drill down beyond the first level
+                        this.createContextRedirects(item.items);
                         break;
                 }
             }
@@ -243,7 +256,10 @@ export class WorkspacePublisher {
                     case "CONTAINER":
                         this.createContainerRedirects(item.items, item.id);
                         break;
-                }
+                    default:
+                        this.createContainerRedirects(item.items);
+                        break;
+                    }
             }
         }
     }
