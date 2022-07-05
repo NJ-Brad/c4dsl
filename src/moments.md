@@ -12,13 +12,13 @@ C4Component
             Container(loans, "Rocket Loans)")
         }
         System_Boundary(l, "Loans") {
-            Container(loans, "Rocket Loans)")
+            Container(l.loans, "Rocket Loans)")
         }
         System_Boundary(f, "Financial Planning") {
             Container(money, "Rocket Money)")
         }
         System_Boundary(a, "Auto") {
-            Container(amrock, "Rocket Auto)")
+            Container(a.auto, "Rocket Auto)")
         }
     }
 
